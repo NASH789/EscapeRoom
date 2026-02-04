@@ -51,7 +51,7 @@ scene.fog = new THREE.Fog(0x08120e, 2, 22);
 const camera = new THREE.PerspectiveCamera(75, innerWidth / innerHeight, 0.1, 60);
 camera.position.set(0, 1.6, 6);
 
-const controls = new PointerLockControls(camera, document.body);
+const controls = new PointerLockControls(camera, canvas);
 
 window.addEventListener("resize", () => {
   camera.aspect = innerWidth / innerHeight;
@@ -249,14 +249,17 @@ function animate() {
 }
 animate();
 
-// Start / pointer lock
 startBtn?.addEventListener("click", () => {
   overlay.style.display = "none";
-  document.body.requestPointerLock?.();
+  overlay.style.pointerEvents = "none";
+
+  canvas.requestPointerLock?.();
   controls.lock();
 });
+
 controls.addEventListener("unlock", () => {
   overlay.style.display = "grid";
+  overlay.style.pointerEvents = "auto";
 });
 
 // Draggable photo/letter that reveals code when moved
