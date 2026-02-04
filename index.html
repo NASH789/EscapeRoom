@@ -3,37 +3,31 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>Co-op Escape Room</title>
+  <title>Haunted Co-op Escape</title>
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
-  <main class="card">
-    <h1>Alone-Together Co-op Escape Room 🗝️</h1>
-    <p>
-      This is a 2-player escape room. Each player gets different clues.
-      You must communicate to progress.
-    </p>
-
-    <div class="section">
-      <p><b>Step 1:</b> Create a shared game code (both players must use the same one).</p>
+  <div id="overlay">
+    <div class="panel">
+      <h1>Haunted House: Alone Together 👻</h1>
+      <p>
+        Two players, two perspectives. You’ll each see different clues.
+        Talk to escape.
+      </p>
       <div class="row">
         <input id="seed" placeholder="Game code (leave blank to generate)" />
-        <button id="gen">Generate</button>
+        <button id="gen">Generate Links</button>
       </div>
-      <p class="small">Tip: Use a short word + number like <span class="code">LARI24</span></p>
-    </div>
-
-    <div class="section">
-      <p><b>Step 2:</b> Send each player their link:</p>
+      <p class="ghost">Send one link to each player. Use voice call for best vibes.</p>
+      <hr style="border:0;border-top:1px solid rgba(255,255,255,.14);margin:14px 0">
       <div class="row">
-        <a class="btn" id="p1" href="#">Player 1 Link</a>
-        <a class="btn" id="p2" href="#">Player 2 Link</a>
+        <a id="p1" class="pill" href="#" style="text-decoration:none;">Player 1 Link</a>
+        <a id="p2" class="pill" href="#" style="text-decoration:none;">Player 2 Link</a>
       </div>
-      <p class="small">Open on two devices or two browsers, and start together.</p>
+      <p class="ghost">Tip: if previews cache, add <b>?v=1</b> to the end of the URL.</p>
     </div>
-  </main>
+  </div>
 
-  <script src="game.js"></script>
   <script>
     function randSeed(){
       const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
@@ -41,27 +35,18 @@
       for (let i=0;i<6;i++) s += chars[Math.floor(Math.random()*chars.length)];
       return s;
     }
-
-    const seedInput = document.getElementById("seed");
-    const p1 = document.getElementById("p1");
-    const p2 = document.getElementById("p2");
-
     function updateLinks(seed){
       const base = location.href.replace(/index\.html.*$/,"").replace(/\?.*$/,"");
-      p1.href = `${base}player1.html?g=${encodeURIComponent(seed)}`;
-      p2.href = `${base}player2.html?g=${encodeURIComponent(seed)}`;
+      document.getElementById("p1").href = `${base}p1.html?g=${encodeURIComponent(seed)}`;
+      document.getElementById("p2").href = `${base}p2.html?g=${encodeURIComponent(seed)}`;
+      document.getElementById("p1").textContent = `Player 1: ${seed}`;
+      document.getElementById("p2").textContent = `Player 2: ${seed}`;
     }
-
     document.getElementById("gen").addEventListener("click", () => {
-      const seed = (seedInput.value || "").trim().toUpperCase() || randSeed();
-      seedInput.value = seed;
-      updateLinks(seed);
+      const v = (document.getElementById("seed").value || "").trim().toUpperCase();
+      updateLinks(v || randSeed());
     });
-
-    // Auto-generate on load for convenience
-    const auto = randSeed();
-    seedInput.value = auto;
-    updateLinks(auto);
+    updateLinks(randSeed());
   </script>
 </body>
 </html>
