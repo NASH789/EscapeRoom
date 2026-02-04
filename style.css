@@ -40,4 +40,68 @@ html, body { margin:0; height:100%; overflow:hidden; font-family: system-ui, -ap
   border: 1px solid rgba(255,255,255,.18);
   color:#eafff3;
   pointer-events: none;
-  display
+  display:none;
+}
+
+#overlay {
+  position: fixed; inset: 0;
+  display:grid; place-items:center;
+  background: radial-gradient(900px 600px at 50% 20%, rgba(255,255,255,.10), transparent 60%),
+              rgba(0,0,0,.45);
+  color:#eafff3;
+  z-index: 10;
+  pointer-events: auto;
+}
+#overlay .panel {
+  width: min(740px, 92vw);
+  border-radius: 22px;
+  padding: 16px 16px;
+  background: rgba(8,18,14,.60);
+  border: 1px solid rgba(255,255,255,.18);
+  backdrop-filter: blur(10px);
+}
+#overlay h1 { margin: 6px 0 8px; font-size: 28px; }
+#overlay p { opacity: .95; line-height: 1.45; }
+#overlay .row { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+#overlay input {
+  padding: 12px 14px; border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.18);
+  background: rgba(0,0,0,.25);
+  color: #eafff3; outline:none;
+}
+#overlay button {
+  padding: 12px 14px; border-radius: 999px; border:0;
+  background: #eafff3; color: #0d3a2a; font-weight: 900;
+  cursor:pointer;
+}
+#overlay .ghost { opacity:.85; font-size: 13px; }
+
+#photoNote {
+  position: fixed;
+  right: 18px; bottom: 96px;
+  width: 220px; height: 150px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(255,255,255,.12), rgba(0,0,0,.20));
+  border: 1px solid rgba(255,255,255,.18);
+  backdrop-filter: blur(8px);
+  pointer-events: auto;
+  cursor: grab;
+  user-select:none;
+  display:none;
+}
+#photoNote:active { cursor: grabbing; }
+#photoNote .label {
+  padding: 10px 12px;
+  font-weight: 800;
+  color:#eafff3;
+}
+#photoNote .secret {
+  position:absolute; left: 10px; bottom: 10px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(0,0,0,.35);
+  border: 1px solid rgba(255,255,255,.16);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  display:none;
+}
+
