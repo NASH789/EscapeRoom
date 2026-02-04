@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Player 1</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <canvas id="c"></canvas>
+
+  <div id="hud">
+    <div id="topbar">
+      <div class="pill">Player 1 🕯️ — Game <span id="seedTag"></span></div>
+      <div class="pill">WASD move • Mouse look • Click items • ESC unlock mouse</div>
+    </div>
+    <div id="centerHint"></div>
+    <div id="inventory"></div>
+
+    <div id="photoNote">
+      <div class="label">Old photo (drag me)</div>
+      <div class="secret" id="p1secret"></div>
+    </div>
+  </div>
+
+  <div id="overlay">
+    <div class="panel">
+      <h1>Enter the haunted house…</h1>
+      <p>Click <b>Start</b>, then click the screen to lock your mouse. Find items, share clues with Player 2.</p>
+      <div class="row">
+        <button id="startBtn">Start</button>
+      </div>
+      <p class="ghost">If the link opened without a game code, go back to the main page.</p>
+    </div>
+  </div>
+
+  <script type="module" src="game3d.js"></script>
+  <script>
+    const seed = new URL(location.href).searchParams.get("g") || "";
+    document.getElementById("seedTag").textContent = seed || "—";
+  </script>
+</body>
+</html>
